@@ -34,8 +34,9 @@ const creators = [
 ];
 
 // In prod: check if secure, then use wss://
+const protocol = process.env.NODE_ENV === "production" ? "wss" : "ws";
 const { data, status, ws, send, close, open } = useWebSocket(
-  `ws://${location?.host}/api/websocket`
+  `${protocol}://${location?.host}/api/websocket`
 );
 console.log(data);
 const history = ref<string[]>([]);

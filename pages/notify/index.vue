@@ -7,7 +7,10 @@ export default {
   },
   methods: {
     async sendData() {
-      const { send } = useWebSocket(`ws://${location?.host}/api/websocket`);
+      const protocol = process.env.NODE_ENV === "production" ? "wss" : "ws";
+      const { send } = useWebSocket(
+        `${protocol}://${location?.host}/api/websocket`
+      );
       send(this.message);
       this.message = "";
     },
